@@ -1,0 +1,10 @@
+Things it should do:
+
+Random valid location not too far
+One or two (or three)?
+Do they have escorts? Bodyguards?
+Are they in a vehicle? Boat? Plane?
+Are they armed?
+Explode on death?
+Send goons after you?
+Decoy?
