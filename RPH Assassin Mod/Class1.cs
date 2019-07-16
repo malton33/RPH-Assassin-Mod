@@ -1,6 +1,7 @@
 ﻿/*using IniParser;
 using IniParser.Model;*/
 using Rage;
+using Rage.ConsoleCommands;
 using System;
 using System.Drawing;
 
@@ -27,6 +28,9 @@ namespace RPH_Assassin_Mod
             //Misc vars
             //Vehicle targetVehicle; UNUSED
             bool targetKilled = false;
+            int wantedLevel = rand.Next(2,5);
+            int cashGiven = rand.Next(10000, 75000);
+            //Calculate wanted level using magic and demons
             GameFiber.Yield();
             Game.LogTrivial("Job active");
             //Display job info
@@ -39,15 +43,35 @@ namespace RPH_Assassin_Mod
             if (target.IsDead) 
                {
                 targetKilled = true;
-                Game.DisplayNotification("Target down! Good job!");
+                Game.DisplayNotification($"Target down! Good job! Now escape the police. You have been given {wantedLevel.ToString()} stars.");
                 targetBlip.Delete();
-                Game.LogTrivial("Unloading");
+                Game.LocalPlayer.WantedLevel = wantedLevel;
+                WantedCheck:
+                if (Game.LocalPlayer.WantedLevel == 0)
+                {
+                    Game.DisplayNotification($"You have escaped from a {wantedLevel} star wanted level and been given ${cashGiven}!");
+                    //Game.LocalPlayer.Character.Money = Game.LocalPlayer.Character.Money + cashGiven; DOES NOT WORK
+                    Game.LogTrivial("Unloading");
+                }
+                else if (Game.LocalPlayer.Character.IsAlive == false)
+                {
+                    Game.DisplayNotification($"You have unsuccessfully escaped from a {wantedLevel} star wanted level, so you have only been given ${cashGiven / 4}.");
+                    //Game.LocalPlayer.Character.Money = Game.LocalPlayer.Character.Money + cashGiven / 4; DOES NOT WORK
+                    Game.LogTrivial("Unloading");
+                }
+                else
+                {
+                    GameFiber.Sleep(100);
+                    goto WantedCheck;
+                }
+
                }
             else
                {
                 GameFiber.Sleep(100);
                 goto DeathCheck;
                }
+
                     }
 
                 }
