@@ -1,7 +1,7 @@
 ﻿/*using IniParser;
 using IniParser.Model;*/
 using Rage;
-using Rage.ConsoleCommands;
+using Rage.Native;
 using System;
 using System.Drawing;
 
@@ -73,8 +73,13 @@ namespace RPH_Assassin_Mod
                }
 
                     }
+        public static void SetCashForPlayer(int index, int amount)
+        {
+            NativeFunction.Natives.STAT_GET_INT(Game.GetHashKey($"sp{index}_total_cash"), out int value, -1);
+            NativeFunction.Natives.STAT_SET_INT(Game.GetHashKey($"sp{index}_total_cash"), value + amount, true);
+        }
 
-                }
+    }
                
 
         }
