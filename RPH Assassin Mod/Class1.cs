@@ -50,13 +50,13 @@ namespace RPH_Assassin_Mod
                 if (Game.LocalPlayer.WantedLevel == 0)
                 {
                     Game.DisplayNotification($"You have escaped from a {wantedLevel} star wanted level and been given ${cashGiven}!");
-                    //Game.LocalPlayer.Character.Money = Game.LocalPlayer.Character.Money + cashGiven; DOES NOT WORK
+                    SetCashForPlayer(cashGiven);
                     Game.LogTrivial("Unloading");
                 }
                 else if (Game.LocalPlayer.Character.IsAlive == false)
                 {
                     Game.DisplayNotification($"You have unsuccessfully escaped from a {wantedLevel} star wanted level, so you have only been given ${cashGiven / 4}.");
-                    //Game.LocalPlayer.Character.Money = Game.LocalPlayer.Character.Money + cashGiven / 4; DOES NOT WORK
+                    SetCashForPlayer(cashGiven / 4);
                     Game.LogTrivial("Unloading");
                 }
                 else
@@ -73,10 +73,12 @@ namespace RPH_Assassin_Mod
                }
 
                     }
-        public static void SetCashForPlayer(int index, int amount)
+        public static void SetCashForPlayer(int amount)
         {
-            NativeFunction.Natives.STAT_GET_INT(Game.GetHashKey($"sp{index}_total_cash"), out int value, -1);
-            NativeFunction.Natives.STAT_SET_INT(Game.GetHashKey($"sp{index}_total_cash"), value + amount, true);
+            //cash may or may not work with this
+            NativeFunction.Natives.STAT_GET_INT(Game.GetHashKey($"sp0_total_cash"), out int value, -1);
+            NativeFunction.Natives.STAT_SET_INT(Game.GetHashKey($"sp0_total_cash"), value + amount, true);
+
         }
 
     }
