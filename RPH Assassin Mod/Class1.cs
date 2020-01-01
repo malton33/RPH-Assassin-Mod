@@ -28,7 +28,7 @@ namespace RPH_Assassin_Mod
             //Misc vars
             //Vehicle targetVehicle; UNUSED
             bool targetKilled = false;
-            int wantedLevel = rand.Next(2,5);
+            int wantedLevel = rand.Next(1,3);
             int cashGiven = rand.Next(10000, 75000);
             //Calculate wanted level using magic and demons
             GameFiber.Yield();
