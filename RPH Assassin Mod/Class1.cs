@@ -1,4 +1,5 @@
-﻿/*using IniParser;
+﻿#pragma warning disable CS0219 // Variable is assigned but its value is never used
+/*using IniParser;
 using IniParser.Model;*/
 using Rage;
 using Rage.Native;
@@ -38,7 +39,7 @@ namespace RPH_Assassin_Mod
             targetBlip.EnableRoute(red);
             GameFiber.Yield();
             Game.LogTrivialDebug("Starting death check");
-            //WHILE LOOPS DONT WORK
+            //WHILE LOOPS DONT WORK??
             DeathCheck:
             if (target.IsDead) 
                {
