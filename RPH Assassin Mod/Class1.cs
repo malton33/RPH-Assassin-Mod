@@ -72,13 +72,15 @@ namespace RPH_Assassin_Mod
                 GameFiber.Sleep(100);
                 goto DeathCheck;
                }
-
+            
                     }
         public static void SetCashForPlayer(int amount)
         {
             //cash may or may not work with this
-            NativeFunction.Natives.STAT_GET_INT(Game.GetHashKey($"sp0_total_cash"), out int value, -1);
-            NativeFunction.Natives.STAT_SET_INT(Game.GetHashKey($"sp0_total_cash"), value + amount, true);
+            int index = Game.LocalPlayer.Index;
+            Game.LogVerboseDebug("Player index:" + index.ToString());
+            NativeFunction.Natives.STAT_GET_INT(Game.GetHashKey($"sp{index}_total_cash"), out int value, -1);
+            NativeFunction.Natives.STAT_SET_INT(Game.GetHashKey($"sp{index}_total_cash"), value + amount, true);
 
         }
 
